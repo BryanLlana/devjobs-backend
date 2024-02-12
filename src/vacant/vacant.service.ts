@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateVacantDto } from './dto/create-vacant.dto';
 import { UpdateVacantDto } from './dto/update-vacant.dto';
 import { Model } from 'mongoose';
@@ -37,8 +37,10 @@ export class VacantService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} vacant`;
+  async findOne(id: string) {
+    const vacant = await this.vacantModel.findById(id).select('-__v')
+    if (!vacant) throw new NotFoundException('Vacante inexistente')
+    return vacant
   }
 
   update(id: number, updateVacantDto: UpdateVacantDto) {

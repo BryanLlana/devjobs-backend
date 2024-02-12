@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { EnvConfiguration } from './config/env.config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { VacantModule } from './vacant/vacant.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { VacantModule } from './vacant/vacant.module';
     MongooseModule.forRoot(process.env.MONGO_URL, {
       dbName: process.env.MONGO_DB_NAME
     }),
-    VacantModule
+    VacantModule,
+    CommonModule
   ],
   controllers: [],
   providers: [],

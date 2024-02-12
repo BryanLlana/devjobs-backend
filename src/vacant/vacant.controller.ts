@@ -3,6 +3,7 @@ import { VacantService } from './vacant.service';
 import { CreateVacantDto } from './dto/create-vacant.dto';
 import { UpdateVacantDto } from './dto/update-vacant.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
+import { ParseMongoIdPipe } from 'src/common/pipes/parse-mongo-id/parse-mongo-id.pipe';
 
 @Controller('vacant')
 export class VacantController {
@@ -21,8 +22,8 @@ export class VacantController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.vacantService.findOne(+id);
+  findOne(@Param('id', ParseMongoIdPipe) id: string) {
+    return this.vacantService.findOne(id);
   }
 
   @Patch(':id')
