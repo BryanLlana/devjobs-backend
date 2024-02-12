@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { VacantService } from './vacant.service';
 import { CreateVacantDto } from './dto/create-vacant.dto';
 import { UpdateVacantDto } from './dto/update-vacant.dto';
+import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 @Controller('vacant')
 export class VacantController {
@@ -15,8 +16,8 @@ export class VacantController {
   }
 
   @Get()
-  findAll() {
-    return this.vacantService.findAll();
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.vacantService.findAll(paginationDto);
   }
 
   @Get(':id')

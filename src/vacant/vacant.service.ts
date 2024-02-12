@@ -4,6 +4,7 @@ import { UpdateVacantDto } from './dto/update-vacant.dto';
 import { Model } from 'mongoose';
 import { Vacant } from './entities/vacant.entity';
 import { InjectModel } from '@nestjs/mongoose';
+import { PaginationDto } from '../common/dtos/pagination.dto';
 
 @Injectable()
 export class VacantService {
@@ -25,8 +26,15 @@ export class VacantService {
     }
   }
 
-  findAll() {
-    return `This action returns all vacant`;
+  async findAll(paginationDto: PaginationDto) {
+    const { limit = 10, offset = 0 } = paginationDto
+
+    try {
+      return await this.vacantModel.find().limit(limit).skip(offset).select('-__v')
+    } catch (error) {
+      console.log(error)
+      throw new InternalServerErrorException('Internal Server Error')
+    }
   }
 
   findOne(id: number) {
