@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateVacantDto } from './dto/create-vacant.dto';
 import { UpdateVacantDto } from './dto/update-vacant.dto';
 import { Model } from 'mongoose';
@@ -9,11 +9,20 @@ import { InjectModel } from '@nestjs/mongoose';
 export class VacantService {
   constructor(
     @InjectModel(Vacant.name)
-    private readonly catModel: Model<Vacant>,
+    private readonly vacantModel: Model<Vacant>,
   ){}
 
-  create(createVacantDto: CreateVacantDto) {
-    return 'This action adds a new vacant';
+  async create(createVacantDto: CreateVacantDto) {
+    try {
+      const vacant = await this.vacantModel.create(createVacantDto)      
+      return {
+        message: 'Vacante registrado correctamente',
+        vacant
+      }
+    } catch (error) {
+      console.log(error)
+      throw new InternalServerErrorException('Internal Server Error')
+    }
   }
 
   findAll() {
