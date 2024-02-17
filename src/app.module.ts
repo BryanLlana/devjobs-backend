@@ -4,6 +4,7 @@ import { EnvConfiguration } from './config/env.config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { VacantModule } from './vacant/vacant.module';
 import { CommonModule } from './common/common.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { CommonModule } from './common/common.module';
       dbName: process.env.MONGO_DB_NAME
     }),
     VacantModule,
-    CommonModule
+    CommonModule,
+    UserModule
   ],
   controllers: [],
   providers: [],
