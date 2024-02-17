@@ -43,8 +43,26 @@ export class VacantService {
     return vacant
   }
 
-  update(id: number, updateVacantDto: UpdateVacantDto) {
-    return `This action updates a #${id} vacant`;
+  async update(id: string, updateVacantDto: UpdateVacantDto) {
+    const vacant = await this.findOne(id)
+    vacant.title = updateVacantDto.title
+    vacant.company = updateVacantDto.company
+    vacant.location = updateVacantDto.location
+    vacant.salary = updateVacantDto.salary
+    vacant.contract = updateVacantDto.contract
+    vacant.description = updateVacantDto.description
+    vacant.skills = updateVacantDto.skills
+    
+    try {
+      await vacant.save()
+      return {
+        message: 'Vacante modificada correctamente',
+        vacant
+      }
+    } catch (error) {
+      console.log(error)
+      throw new InternalServerErrorException('Internal Server Error')
+    }
   }
 
   remove(id: number) {

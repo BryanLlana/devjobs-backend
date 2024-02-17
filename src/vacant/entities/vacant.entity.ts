@@ -9,38 +9,38 @@ export class Vacant extends Document {
     trim: true,
     required: [true, 'Title is required']
   })
-  public readonly title: string
+  public title: string
   @Prop({
     type: String,
     trim: true
   })
-  public readonly company: string
+  public company: string
   @Prop({
     type: String,
     trim: true,
     required: [true, 'Location is required']
   })
-  public readonly location: string
+  public location: string
   @Prop({
     type: String,
     trim: true,
     required: [true, 'Salary is required']
   })
-  public readonly salary: number
+  public salary: string
   @Prop({
     type: String,
     trim: true
   })
-  public readonly contract: string
+  public contract: string
   @Prop({
     type: String,
     trim: true
   })
-  public readonly description: string
+  public description: string
   @Prop({
     type: [String]
   })
-  public readonly skills: string[]
+  public skills: string[]
   @Prop({
     type: [{
       nombre: String,
@@ -48,7 +48,7 @@ export class Vacant extends Document {
       cv: String
     }]
   })
-  public readonly candidates: Object[]
+  public candidates: Object[]
 }
 
 export const VacantSchema = SchemaFactory.createForClass(Vacant)

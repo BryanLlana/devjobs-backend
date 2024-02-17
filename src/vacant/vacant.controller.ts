@@ -27,8 +27,8 @@ export class VacantController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVacantDto: UpdateVacantDto) {
-    return this.vacantService.update(+id, updateVacantDto);
+  update(@Param('id', ParseMongoIdPipe) id: string, @Body() updateVacantDto: UpdateVacantDto) {
+    return this.vacantService.update(id, updateVacantDto);
   }
 
   @Delete(':id')
